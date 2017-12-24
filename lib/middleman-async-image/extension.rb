@@ -8,8 +8,9 @@ require 'fileutils'
 
 # Extension namespace
 class AsyncImage < ::Middleman::Extension
-  option :compress_image_path, 'compress', 'async'
-  option :quality, 'low', 'medium'
+  option :compress_image_path, 'compress', 'other folder in your images, like "async"'
+  option :quality, 15, 'between 1 and 100'
+  option :scale, 0.3, 'between 0 and 1'
 
   def initialize(app, options_hash={}, &block)
     # Call super to build options from the options_hash
@@ -26,17 +27,6 @@ class AsyncImage < ::Middleman::Extension
     end
   end
 
-  def image_quality
-    case AsyncImage.config[:quality]
-    when 'low'
-      return 15
-    when 'medium'
-      return 25
-    when 'high'
-      return 35
-    end
-  end
-
   def after_configuration
     compress_dir
     puts "Async loaded images will be compress from source/" + app.config[:images_dir] + " to source/#{app.config[:images_dir]}/" + options.compress_image_path
@@ -48,8 +38,9 @@ class AsyncImage < ::Middleman::Extension
       FileUtils.mkdir_p(complete_path.match(/(.*\/)+(.*$)/)[1])
 
       Magick::Image::read("source/#{app.config[:images_dir]}/" + path)[0]
-      .scale(0.3)
-      .write(complete_path){|f| f.quality = 10 }
+      .scale(AsyncImage.config[:scale])
+      .write(complete_path){|f| f.quality = AsyncImage.config[:quality] }
+      print(path + ' has been compressed')
 
       params['data-compress'] = image_path(AsyncImage.config[:compress_image_path] + '/' + path)
       begin
