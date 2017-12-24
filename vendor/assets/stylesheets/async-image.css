@@ -1,0 +1,46 @@
+@-moz-keyframes asyncImage {
+  from {
+    opacity: .2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes asyncImage {
+  from {
+    opacity: .2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes asyncImage {
+  from {
+    opacity: .2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes asyncImage {
+  from {
+    opacity: .2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.async-image {
+  transition: all .7s;
+}
+
+.async-image.async-small-loaded {
+  filter: blur(15px);
+}
+
+.async-image.async-small-loaded,
+.async-image.async-large-loaded {
+  animation-name: asyncImage;
+  animation-duration: 1s;
+}

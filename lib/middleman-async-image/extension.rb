@@ -39,7 +39,7 @@ class AsyncImage < ::Middleman::Extension
 
   def after_configuration
     compress_dir
-    puts "Compress source/" + app.config[:images_dir] + " to source/#{app.config[:images_dir]}/" + options.compress_image_path
+    puts "Async loaded images will be compress from source/" + app.config[:images_dir] + " to source/#{app.config[:images_dir]}/" + options.compress_image_path
   end
 
   helpers do
@@ -51,10 +51,14 @@ class AsyncImage < ::Middleman::Extension
       .scale(0.3)
       .write(complete_path){|f| f.quality = 10 }
 
-      return {
-        full: path,
-        compress: AsyncImage.config[:compress_image_path] + '/' + path
-      }
+      params['data-compress'] = image_path(AsyncImage.config[:compress_image_path] + '/' + path)
+      begin
+        params[:class] += ' async-image'
+      rescue
+        params['class'] += ' async-image'
+      end
+
+      return image_tag(path, params)
     end
   end
 
