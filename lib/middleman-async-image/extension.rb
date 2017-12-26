@@ -21,7 +21,7 @@ class AsyncImage < ::Middleman::Extension
   end
 
   def compress_dir
-    dir = "source/#{app.config[:images_dir]}/" + AsyncImage.config[:compress_image_path]
+    dir = "source/#{app.config[:images_dir]}/" + extensions[:async_image].options[:compress_image_path]
     unless Dir.exists?(dir)
       FileUtils.mkdir(dir)
     end
@@ -34,15 +34,15 @@ class AsyncImage < ::Middleman::Extension
 
   helpers do
     def image_async_tag(path, params={})
-      complete_path = "source/#{app.config[:images_dir]}/" + AsyncImage.config[:compress_image_path] + '/' + path
+      complete_path = "source/#{app.config[:images_dir]}/" + extensions[:async_image].options[:compress_image_path] + '/' + path
       FileUtils.mkdir_p(complete_path.match(/(.*\/)+(.*$)/)[1])
 
       Magick::Image::read("source/#{app.config[:images_dir]}/" + path)[0]
-      .scale(AsyncImage.config[:scale])
-      .write(complete_path){|f| f.quality = AsyncImage.config[:quality] }
+      .scale(extensions[:async_image].options[:scale])
+      .write(complete_path){|f| f.quality = extensions[:async_image].options[:quality] }
       print(path + ' has been compressed')
 
-      params['data-compress'] = image_path(AsyncImage.config[:compress_image_path] + '/' + path)
+      params['data-compress'] = image_path(extensions[:async_image].options[:compress_image_path] + '/' + path)
       begin
         params[:class] += ' async-image'
       rescue
