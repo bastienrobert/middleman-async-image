@@ -1,2 +1,1 @@
-# WIP !
-Automatic image helper will be do ASAP.
+# NOTHING RIGHT NOW
