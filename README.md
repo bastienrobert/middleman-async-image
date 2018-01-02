@@ -6,6 +6,9 @@ Load your images asynchronously with Middleman : like Medium.
 ## Why?
 Because loading images on poor connections is really ugly. Medium as a great image loader so I develop a Gem to make it same as Middleman.
 
+## What about SEO ?
+Check the [SEO markdown](SEO.md) file! (ut everithing is well)
+
 ## But how exactly it works ?
 This gem detect when you want to load an image asynchronously (when you're using the helper). It going to duplicate it, with really strong compression and scale in a separate folder. Then, a JS function will load the poor quality image firstly, and the HQ image asynchronously. When the great image will be loaded, the other image will disappear.
 
