@@ -3,13 +3,13 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "middleman-async-image"
-  s.version     = "0.0.2"
+  s.version     = "0.0.3"
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Bastien Robert"]
-  # s.email       = ["email@example.com"]
-  # s.homepage    = "http://example.com"
-  s.summary     = "Load your images asynchronous"
-  # s.description = %q{A longer description of your extension}
+  s.email       = ["bastienrobert@outlook.com"]
+  s.homepage    = "https://github.com/bastienrobert/middleman-async-image"
+  s.summary     = "Load your images asynchronously"
+  s.description = "Finally a gem to load automaticly your images asynchronously, like Medium."
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
