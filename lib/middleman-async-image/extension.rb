@@ -45,10 +45,13 @@ class AsyncImage < ::Middleman::Extension
       print(path + ' has been compressed')
 
       params['data-compress'] = image_path(options[:compress_image_path] + '/' + path)
+      
       begin
-        params[:class] += ' async-image'
+        params[:class] = params[:class].nil? ? '' : params[:class] + ' ' 
+        params[:class] += 'async-image'
       rescue
-        params['class'] += ' async-image'
+        params['class'] = params['class'].nil? ? '' : params['class'] + ' ' 
+        params['class'] += 'async-image'
       end
 
       return image_tag(path, params)
